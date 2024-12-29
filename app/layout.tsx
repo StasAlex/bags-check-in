@@ -19,7 +19,7 @@ export default function DashboardLayout({children}: { children: ReactNode }) {
                     <Header/>
                     <div className="flex flex-1 flex-col-reverse md:flex-row">
                         <Navigation />
-                        <main className="w-3/4 p-4 flex-1">
+                        <main className="w-full md:w-3/4 p-4 flex-1">
                             {children}
                         </main>
                     </div>

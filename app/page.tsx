@@ -2,16 +2,15 @@
 "use client";
 
 import React from 'react';
-import Navigation from '@/app/components/Navigation';
-import NavigationCard from '@/app/components/NavigationCard';
+import {RiDashboardHorizontalFill} from "react-icons/ri";
 
 const Home: React.FC = () => {
     return (
-        <div className="flex min-h-screen">
-            <div className="w-3/4 p-4">
-                <h1 className="text-3xl text-primary-dark font-bold mb-4">Welcome to the Bags Accounting App</h1>
-                <p className="text-lg">Navigate through the app to manage your dashboard, products, and orders efficiently.</p>
-            </div>
+        <div className="p-4">
+            <h1 className="text-2xl text-primary-dark font-bold flex items-center">
+                <RiDashboardHorizontalFill className="mr-2"/> Dashboard
+            </h1>
+            <p>All info related to your products.</p>
         </div>
     );
 };

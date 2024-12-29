@@ -1,24 +1,27 @@
 "use client";
 
-import React, {useEffect} from 'react';
-import { FaBox, FaShoppingCart } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 import { IoBag } from "react-icons/io5";
+import Link from "next/link";
 
 type Props = {
     href: string;
     icon: "RiDashboardHorizontalFill" | "IoBag" | "FaShoppingCart";
     label: string;
+    isActive: boolean;
 };
 
 const icons = {
-    RiDashboardHorizontalFill: <RiDashboardHorizontalFill className="text-primary-dark text-2xl" />,
-    IoBag: <IoBag className="text-primary-dark text-2xl" />,
-    FaShoppingCart: <FaShoppingCart className="text-primary-dark text-2xl" />,
+    RiDashboardHorizontalFill: <RiDashboardHorizontalFill className="text-2xl" />,
+    IoBag: <IoBag className="text-2xl" />,
+    FaShoppingCart: <FaShoppingCart className="text-2xl" />,
 };
 
-const NavigationCard: React.FC<Props> = ({ href, icon, label }) => {
-    const [isDesktop, setIsDesktop] = React.useState(false);
+const NavigationCard: React.FC<Props> = ({ href, icon, label, isActive }) => {
+    const [isDesktop, setIsDesktop] = useState(false);
+
     useEffect(() => {
         const updateMedia = () => {
             setIsDesktop(window.innerWidth >= 768);
@@ -31,14 +34,17 @@ const NavigationCard: React.FC<Props> = ({ href, icon, label }) => {
     }, []);
 
     return (
-        <a href={href} className="bg-white p-2 md:p-3 border rounded-full md:rounded-lg shadow-md flex items-center justify-center md:justify-start space-x-2 md:space-x-4 hover:bg-primary-dark hover:bg-opacity-10">
+        <Link
+            href={href}
+            className={`p-2 md:p-3 rounded-full md:rounded-lg shadow-md flex items-center justify-center md:justify-start space-x-2 md:space-x-4 ${isActive ? 'bg-primary-dark text-white' : 'bg-white text-primary-dark'}`}
+        >
             <div>
                 {icons[icon]}
             </div>
             {isDesktop && (
-                <p className="text-primary-dark font-light md:text-xl">{label}</p>
+                <p className={isActive ? 'font-light md:text-xl text-white' : 'text-primary-dark font-light md:text-xl'}>{label}</p>
             )}
-        </a>
+        </Link>
     );
 };
 
