@@ -15,25 +15,41 @@ const authOptions = {
         signIn: "/signin",
     },
     callbacks: {
-        async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-            return url.startsWith(baseUrl) ? "/dashboard" : baseUrl;
-        },
-        async session({ session, token }:{ session: any; token: string | any }) {
-            console.log("session", session);
-            if (token) {
-                session.user.id = token.id;
-            }
-            return session;
-        },
-        async jwt({ token, user }:{ token: string | any; user: any }) {
-            console.log("token", token);
-            if (user) {
-                token.id = user.id;
-            }
-            return token;
-        },
-    },
+            async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
+                console.log("Redirect Callback Debug:");
+                console.log("URL:", url);
+                console.log("Base URL:", baseUrl);
 
+                // Redirect to dashboard if the URL starts with the base URL, otherwise return the base URL
+                return url.startsWith(baseUrl) ? "/dashboard" : baseUrl;
+            },
+            async session({ session, token }: { session: any; token: any }) {
+                console.log("Session Callback Debug:");
+                console.log("Session before enrichment:", session);
+
+                // Add the user ID to the session if available
+                if (token?.id) {
+                    session.user = session.user || {};
+                    session.user.id = token.id;
+                }
+
+                console.log("Session after enrichment:", session);
+                return session;
+            },
+            async jwt({ token, user }: { token: any; user?: any }) {
+                console.log("JWT Callback Debug:");
+                console.log("Token before enrichment:", token);
+                console.log("User:", user);
+
+                // Add the user ID to the token if available
+                if (user) {
+                    token.id = user.id;
+                }
+
+                console.log("Token after enrichment:", token);
+                return token;
+            },
+        }
 };
 
 const handler = NextAuth(authOptions)
