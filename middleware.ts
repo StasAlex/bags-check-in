@@ -2,11 +2,15 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-    const token = request.cookies.get("next-auth.session-token");
-    const isAuthPage = request.nextUrl.pathname.startsWith("/auth");
+    const token = request.cookies.get("next-auth.session-token")?.value || request.cookies.get("__Secure-next-auth.session-token")?.value;
+
+    const isAuthPage = request.nextUrl.pathname.startsWith("/signin");
 
     if (!token && !isAuthPage) {
-        return NextResponse.redirect(new URL("/signin", request.url));
+        const url = request.nextUrl.clone();
+        url.pathname = "/signin";
+        url.searchParams.set("callbackUrl", request.nextUrl.pathname);
+        return NextResponse.redirect(url);
     }
 
     if (token && isAuthPage) {
@@ -17,5 +21,10 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/dashboard/:path*", "/products/:path*", "/orders/:path*", "/"],
+    matcher: [
+        "/dashboard/:path*",
+        "/products/:path*",
+        "/orders/:path*",
+        "/",
+    ],
 };
