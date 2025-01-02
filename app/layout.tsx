@@ -1,31 +1,27 @@
 import type {Metadata} from "next";
-import {ReactNode} from 'react';
-import ReduxProvider from '@/components/ReduxProvider';
+import React, {ReactNode} from 'react';
 import "./globals.css";
-import Navigation from '@/components/Navigation';
-import Header from '@/components/Header';
+import ClientProviders from "@/components/ClientProviders";
 
 export const metadata: Metadata = {
     title: "Products Accounting",
     description: "Products Accounting created on NextJs",
+    icons: {
+        icon: "/favicon.svg"
+    }
 };
 
-export default function DashboardLayout({children}: { children: ReactNode }) {
+export default function RootLayout({children}: { children: ReactNode }) {
     return (
         <html lang="en">
-            <body>
-            <ReduxProvider>
-                <div className="flex flex-col h-screen">
-                    <Header/>
-                    <div className="flex flex-1 flex-col-reverse md:flex-row">
-                        <Navigation />
-                        <main className="w-full md:w-3/4 p-4 flex-1">
-                            {children}
-                        </main>
-                    </div>
-                </div>
-            </ReduxProvider>
-            </body>
+        <head>
+            <meta name="google-site-verification" content="jKun-GpwdNaKX3u8V_GXz87bVIzJZfLXFB_fVnXs0p4"/>
+        </head>
+        <body>
+        <ClientProviders>
+            {children}
+        </ClientProviders>
+        </body>
         </html>
     );
 }

@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 import { IoBag } from "react-icons/io5";
 import Link from "next/link";
+
+import useIsDesktop from "@/hooks/useIsDesktop";
 
 type Props = {
     href: string;
@@ -20,18 +22,7 @@ const icons = {
 };
 
 const NavigationCard: React.FC<Props> = ({ href, icon, label, isActive }) => {
-    const [isDesktop, setIsDesktop] = useState(false);
-
-    useEffect(() => {
-        const updateMedia = () => {
-            setIsDesktop(window.innerWidth >= 768);
-        };
-
-        updateMedia();
-        window.addEventListener('resize', updateMedia);
-
-        return () => window.removeEventListener('resize', updateMedia);
-    }, []);
+    const isDesktop = useIsDesktop();
 
     return (
         <Link
