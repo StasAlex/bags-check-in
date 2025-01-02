@@ -14,6 +14,11 @@ const authOptions = {
     pages: {
         signIn: "/signin",
     },
+    callbacks: {
+        async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
+            return url.startsWith(baseUrl) ? "/dashboard" : baseUrl;
+        },
+    },
 };
 
 const handler = NextAuth(authOptions)
