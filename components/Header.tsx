@@ -11,11 +11,11 @@ const Header: React.FC = () => {
 
     return (
         <div className="flex justify-between items-center p-4 shadow-lg">
-            <Link href="/" className="text-xl font-bold text-primary-dark flex items-center justify-center">
-                <FaBagShopping className="text-3xl text-primary-dark" />
-                {isDesktop ? (<h1 className="md:pl-2 uppercase relative top-1">Productify</h1>): "" }
+            <Link href="/" className="text-xl font-bold text-primary-dark flex flex-col md:flex-row items-center justify-center">
+                <FaBagShopping className="text-3xl text-primary-dark"/>
+                <h1 className={`md:pl-2 uppercase relative top-1 text-xs md:text-xl`}>Productify</h1>
             </Link>
-            <HeaderAccount />
+            <HeaderAccount/>
         </div>
     );
 };

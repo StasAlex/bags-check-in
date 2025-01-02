@@ -21,17 +21,17 @@ const HeaderAccount: React.FC = () => {
         <div className="flex justify-between items-center">
             {status === "authenticated" ? (
                 <details className="relative group">
-                    <summary className="flex items-center space-x-2 md:space-x-4 cursor-pointer">
+                    <summary className="flex items-center cursor-pointer">
                         {session?.user?.image && (
                             <Image
                                 src={session?.user?.image}
                                 width={isDesktop ? 50 : 30}
                                 height={isDesktop ? 50 : 30}
                                 alt={session.user.name || "User"}
-                                className="rounded-full"
+                                className="rounded-full mr-2"
                             />
                         )}
-                        <p className="text-primary-dark max-w-[100px] md:max-w-full text-xs md:text-lg">
+                        <p className="text-primary-dark max-w-20 md:max-w-full text-xs md:text-lg">
                             {session.user?.name || "User"}
                         </p>
                         {/* Arrow Icon */}

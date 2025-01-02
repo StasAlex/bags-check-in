@@ -1,8 +1,8 @@
 import NextAuth, {Session, User} from "next-auth";
+import {JWT} from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
 import client from "@/lib/mongodb"
-import {JWT} from "next-auth/jwt";
 
 const authOptions = {
     adapter: MongoDBAdapter(client),
@@ -17,15 +17,10 @@ const authOptions = {
     },
     callbacks: {
         async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-            console.log('url', url);
-            console.log('baseUrl', baseUrl);
 
             return url.startsWith(baseUrl) ? "/dashboard" : baseUrl;
         },
         async session({ session, token }: { session: Session; token: JWT }) {
-            console.log("Session Callback Debug:");
-            console.log("Session before enrichment:", session);
-
             if (token?.id) {
                 session.user = {
                     ...session.user,
@@ -33,11 +28,9 @@ const authOptions = {
                 };
             }
 
-            console.log("Session after enrichment:", session);
             return session;
         },
         async jwt({ token, user }:{ token: JWT; user: User }) {
-            console.log("token", token);
             if (user) {
                 token.id = user.id;
             }
