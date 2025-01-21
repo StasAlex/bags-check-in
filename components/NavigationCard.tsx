@@ -4,13 +4,15 @@ import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 import { IoBag } from "react-icons/io5";
+import { BiSolidPurchaseTag } from "react-icons/bi";
+
 import Link from "next/link";
 
 import useIsDesktop from "@/hooks/useIsDesktop";
 
 type Props = {
     href: string;
-    icon: "RiDashboardHorizontalFill" | "IoBag" | "FaShoppingCart";
+    icon: "RiDashboardHorizontalFill" | "IoBag" | "FaShoppingCart" | "BiSolidPurchaseTag";
     label: string;
     isActive: boolean;
 };
@@ -19,6 +21,7 @@ const icons = {
     RiDashboardHorizontalFill: <RiDashboardHorizontalFill className="text-2xl" />,
     IoBag: <IoBag className="text-2xl" />,
     FaShoppingCart: <FaShoppingCart className="text-2xl" />,
+    BiSolidPurchaseTag: <BiSolidPurchaseTag className="text-2xl" />
 };
 
 const NavigationCard: React.FC<Props> = ({ href, icon, label, isActive }) => {

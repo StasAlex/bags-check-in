@@ -4,10 +4,13 @@ import React from 'react';
 import HeaderAccount from '@/components/Account';
 import Link from "next/link";
 import { FaBagShopping } from 'react-icons/fa6';
-import useIsDesktop from "@/hooks/useIsDesktop";
+import {BiLoader} from "react-icons/bi";
+import {useSession} from "next-auth/react";
 
 const Header: React.FC = () => {
-    const isDesktop = useIsDesktop();
+    const { status } = useSession({
+        required: false
+    });
 
     return (
         <div className="flex justify-between items-center p-4 shadow-lg">
@@ -15,7 +18,11 @@ const Header: React.FC = () => {
                 <FaBagShopping className="text-3xl text-primary-dark"/>
                 <h1 className={`md:pl-2 uppercase relative top-1 text-xs md:text-xl`}>Productify</h1>
             </Link>
-            <HeaderAccount/>
+            {status === 'loading' ? (
+                <BiLoader className="animate-spin text-4xl text-primary-dark" />
+            ) : (
+                <HeaderAccount/>
+            )}
         </div>
     );
 };

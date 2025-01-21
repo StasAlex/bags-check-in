@@ -10,11 +10,17 @@ import {MdAdminPanelSettings, MdExpandMore} from "react-icons/md";
 import useIsDesktop from "@/hooks/useIsDesktop";
 
 const HeaderAccount: React.FC = () => {
-    const { data: session, status } = useSession();
+    const { data: session, status } = useSession({
+        required: false,
+    });
     const isDesktop = useIsDesktop();
 
     if (status === "loading") {
-        return <BiLoader className="animate-spin text-4xl text-primary-dark" />;
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <BiLoader className="animate-spin text-4xl text-primary-dark" />
+            </div>
+        );
     }
 
     return (

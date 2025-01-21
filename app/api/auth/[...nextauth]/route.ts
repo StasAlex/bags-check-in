@@ -17,8 +17,8 @@ const authOptions = {
     },
     callbacks: {
         async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-
-            return url.startsWith(baseUrl) ? "/dashboard" : baseUrl;
+            // If the URL starts with the base URL, use it; otherwise, redirect to the homepage
+            return url.startsWith(baseUrl) ? url : baseUrl;
         },
         async session({ session, token }: { session: Session; token: JWT }) {
             if (token?.id) {

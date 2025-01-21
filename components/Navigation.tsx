@@ -13,6 +13,7 @@ const Navigation: React.FC = () => {
                 <NavigationCard href="/dashboard" icon="RiDashboardHorizontalFill" label="Dashboard" isActive={pathname === '/dashboard'} />
                 <NavigationCard href="/products" icon="IoBag" label="Products" isActive={pathname === '/products'} />
                 <NavigationCard href="/orders" icon="FaShoppingCart" label="Orders" isActive={pathname === '/orders'} />
+                <NavigationCard href="/purchases" icon="BiSolidPurchaseTag" label="Purchases" isActive={pathname === '/purchases'} />
             </nav>
         </div>
     );
